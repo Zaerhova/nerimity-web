@@ -40,15 +40,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # NEW STEP: Convert the repository name to lowercase strings safely
+      - name: Downcase Repository Name
+        run: |
+          echo "IMAGE_NAME_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ env.IMAGE_NAME_LOWER }}:latest
           # Pass your explicit Nerimity production configs straight into the image build process
           build-args: |
-            VVITE_SERVER_URL=https://nerimity.back.geekuane.quest
+            ViTE_SERVER_URL=https://nerimity.back.geekuane.quest
             VITE_APP_URL=https://nemirity.geekyane.quest
             VITE_MOBILE_WIDTH=850
             VITE_TURNSTILE_SITEKEY=0x4AAAAAAABO1ilip_YaVHJk
