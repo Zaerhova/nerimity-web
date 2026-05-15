@@ -1,2 +1,5 @@
+allowBuilds:
+  esbuild: set this to true or false
+  node-datachannel: true
 patchedDependencies:
   sortablejs: patches/sortablejs.patch
