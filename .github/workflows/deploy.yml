@@ -1,0 +1,60 @@
+name: push-build
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get the date
+        id: get_date
+        run: |
+          echo "RELEASE_TIMESTAMP=$(date +%s%3N)" >> $GITHUB_OUTPUT
+
+      - name: Get short SHA
+        id: slug
+        run: |
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}:latest
+          # Pass your explicit Nerimity production configs straight into the image build process
+          build-args: |
+            VVITE_SERVER_URL=https://nerimity.back.geekuane.quest
+            VITE_APP_URL=https://nemirity.geekyane.quest
+            VITE_MOBILE_WIDTH=850
+            VITE_TURNSTILE_SITEKEY=0x4AAAAAAABO1ilip_YaVHJk
+            VITE_RELEASE_TIMESTAMP=${{ steps.get_date.outputs.RELEASE_TIMESTAMP }}
+            VITE_APP_VERSION=${{ steps.slug.outputs.sha_short }}
+            VITE_EMOJI_URL=https://api.yourdomain.com/twemojis/
+            VITE_NERIMITY_CDN=https://cdn.yourdomain.com/
+            VITE_GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
+            VITE_GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
