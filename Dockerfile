@@ -9,6 +9,7 @@ RUN npm install -g pnpm
 # Copy only dependency files first to speed up future builds
 COPY package.json pnpm-lock.yaml* ./
 RUN pnpm config set side-effects-cache false
+RUN pnpm approve-builds
 RUN pnpm install --no-frozen-lockfile
 
 # Copy the rest of your code
