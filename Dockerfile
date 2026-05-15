@@ -7,10 +7,16 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 # Copy only dependency files first to speed up future builds
+# Copy files
 COPY package.json pnpm-lock.yaml* ./
-RUN pnpm config set side-effects-cache false
-RUN pnpm approve-builds
-RUN pnpm install --no-frozen-lockfile
+COPY patches ./patches
+
+# This bypasses the interactive security prompt
+RUN pnpm install --no-frozen-lockfile --ignore-scripts
+
+# Then, if the app specifically needs scripts for certain packages, 
+# you can run them manually or tell pnpm it's okay:
+RUN pnpm approve-builds && pnpm install --no-frozen-lockfile
 
 # Copy the rest of your code
 COPY . .
