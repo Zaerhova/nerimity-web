@@ -57,7 +57,7 @@ jobs:
             VITE_APP_URL=https://nemirity.geekuane.quest
             VITE_WS_URL="https://ws.nerimity.geekuane.quest"
             VITE_MOBILE_WIDTH=850
-            VITE_TURNSTILE_SITEKEY=0x4AAAAAAABO1ilip_YaVHJk
+            VITE_TURNSTILE_SITEKEY=0x4AAAAAADQgjpITpccHsFdv
             VITE_RELEASE_TIMESTAMP=${{ steps.get_date.outputs.RELEASE_TIMESTAMP }}
             VITE_APP_VERSION=${{ steps.slug.outputs.sha_short }}
             VITE_EMOJI_URL=https://nerimity.com/twemojis/
