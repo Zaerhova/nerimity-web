@@ -53,9 +53,9 @@ jobs:
           tags: ghcr.io/${{ env.IMAGE_NAME_LOWER }}:latest
           # Pass your explicit Nerimity production configs straight into the image build process
           build-args: |
-            VITE_SERVER_URL={{ secrets.SERVER_URL }}
-            VITE_APP_URL={{ secrets.APP_URL }}
-            VITE_WS_URL={{ secrets.WS_URL }}
+            VITE_SERVER_URL=${{ secrets.SERVER_URL }}
+            VITE_APP_URL=${{ secrets.APP_URL }}
+            VITE_WS_URL=${{ secrets.WS_URL }}
             VITE_MOBILE_WIDTH=850
             VITE_TURNSTILE_SITEKEY=0x4AAAAAADQgjpITpccHsFdv
             VITE_RELEASE_TIMESTAMP=${{ steps.get_date.outputs.RELEASE_TIMESTAMP }}
