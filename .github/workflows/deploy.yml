@@ -53,7 +53,7 @@ jobs:
           tags: ghcr.io/${{ env.IMAGE_NAME_LOWER }}:latest
           # Pass your explicit Nerimity production configs straight into the image build process
           build-args: |
-            ViTE_SERVER_URL=https://api.nerimity.geekuane.quest
+            VITE_SERVER_URL=https://api.nerimity.geekuane.quest
             VITE_APP_URL=https://nemirity.geekuane.quest
             VITE_WS_URL="https://ws.nerimity.geekuane.quest"
             VITE_MOBILE_WIDTH=850
