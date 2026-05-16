@@ -53,13 +53,14 @@ jobs:
           tags: ghcr.io/${{ env.IMAGE_NAME_LOWER }}:latest
           # Pass your explicit Nerimity production configs straight into the image build process
           build-args: |
-            ViTE_SERVER_URL=https://nerimity.back.geekuane.quest
-            VITE_APP_URL=https://nemirity.geekyane.quest
+            ViTE_SERVER_URL=https://api.nerimity.geekuane.quest
+            VITE_APP_URL=https://nemirity.geekuane.quest
+            VITE_WS_URL="https://ws.nerimity.geekuane.quest"
             VITE_MOBILE_WIDTH=850
             VITE_TURNSTILE_SITEKEY=0x4AAAAAAABO1ilip_YaVHJk
             VITE_RELEASE_TIMESTAMP=${{ steps.get_date.outputs.RELEASE_TIMESTAMP }}
             VITE_APP_VERSION=${{ steps.slug.outputs.sha_short }}
-            VITE_EMOJI_URL=https://api.yourdomain.com/twemojis/
+            VITE_EMOJI_URL=https://api.nerimity.geekuane.quest/twemojis/
             VITE_NERIMITY_CDN=https://cdn.yourdomain.com/
             VITE_GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
             VITE_GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}
