@@ -161,7 +161,9 @@ export default function LoginPage() {
             margin={[10, 0, 0, 0]}
             padding={8}
           />
-
+          <A class={linkStyle} href="/reset-password">
+            {t("resetPassword.resetPasswordButton")}
+          </A>
           <A class={linkStyle} href="/register">
             {t("loginPage.createAccountInstead")}
           </A>
